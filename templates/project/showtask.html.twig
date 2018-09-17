@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}Project{% endblock %}
+{% block body %}
+<table class="table table-stripe  d table-dark">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">edit</th>
+              <th scope="col">del</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{{ project.id }}</td>
+                <td><a href="/project.php?project_id=<?php echo $row['project_id'] ?>">{{ project.name }}</a></td>
+                <td><a href="/edit.php?project_id=<?php echo $row['project_id'] ?>">Edit</a></td>
+                <td><a href="/delete.php?project_id=<?php echo $row['project_id'] ?>">Delete</a></td>
+              </tr>
+          </tbody>
+<button name="write" class="j-submit-report" onclick="window.location.href='create_project.php'">Create project</button>
+          </table>
+          </div>
+          //  вывод тикетов
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Task/Bug</th>
+                <th>Status</th>
+                <th>assigned_id</th>
+                <th>file</th>
+                <th>project_id</th>
+                <th>creator_id</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for tick in tickets %}
+            <tr>
+                 <td>{{ tick.id }}</td>
+                 <td>{{ tick.name }}</td>
+                 <td>{{ tick.description }}</td>
+                 <td>{{ tick.type }}</td>
+                 <td>{{ tick.status }}</td>
+                 <td>{{ tick.assignedid }}</td>
+                 <td>{{ tick.file }}</td>
+                 <td>{{ tick.projectId}}</td>
+                 <td>{{ tick.createrId}}</td>
+                 <td><a href="red_task.php?id=<?php echo $row['id'] ?>">red</a><td>
+                 <td><a href="del_task.php?id=<?php echo $row['id'] ?>">del</a><td>
+                </tr>
+                {% endfor %}
+            </tbody>
+{% endblock %}
