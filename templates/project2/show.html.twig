@@ -1,11 +1,8 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base.html.twig'%}
 {% block title %}Project2{% endblock %}
-
 {% block body %}
     <h1>Project2</h1>
-
-    <table class="table">
+    <table class="table table-striped table-dark">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -27,4 +24,35 @@
     <a href="{{ path('project2_edit', {'id': project2.id}) }}">edit</a>
 
     {{ include('project2/_delete_form.html.twig') }}
+    <table class="table table-striped table-dark">
+       <thead>
+         <tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Description</th>
+           <th>Task/Bug</th>
+           <th>Status</th>
+           <th>assigned_id</th>
+           <th>file</th>
+           <th>project_id</th>
+           <th>creator_id</th>
+         </tr>
+       </thead>
+       <tbody>
+       {% for tick in tickets %}
+       <tr>
+            <td>{{ tick.id }}</td>
+            <td><a href="{{ path('tickets_show',{'id': tick.id}) }}">{{ tick.name }}</a></td>
+            <td>{{ tick.description }}</td>
+            <td>{{ tick.type }}</td>
+            <td>{{ tick.status }}</td>
+            <td>{{ tick.assignedid }}</td>
+            <td>{{ tick.file }}</td>
+            <td>{{ tick.projectId}}</td>
+            <td>{{ tick.createrId}}</td>
+            <td><a href="{{ path('tickets_delete', {'id': tick.id}) }}">delete</a><td>
+            <td><a href="{{ path('tickets_show', {'id': tick.id}) }}">edit</a><td>
+           </tr>
+           {% endfor %}
+       </tbody>
 {% endblock %}

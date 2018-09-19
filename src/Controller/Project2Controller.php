@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Project2;
+use App\Entity\Tickets;
 use App\Form\Project2Type;
 use App\Repository\Project2Repository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/project2")
@@ -51,7 +53,12 @@ class Project2Controller extends AbstractController
      */
     public function show(Project2 $project2): Response
     {
-        return $this->render('project2/show.html.twig', ['project2' => $project2]);
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($project2);
+           $em->flush();
+           $repository = $this->getDoctrine()->getRepository(Tickets::class);
+           $tickets = $repository->findBy(['project_id' => $project2->getId(),]);
+        return $this->render('project2/show.html.twig', ['project2' => $project2, 'tickets' => $tickets ]);
     }
 
     /**
@@ -73,7 +80,6 @@ class Project2Controller extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}", name="project2_delete", methods="DELETE")
      */
