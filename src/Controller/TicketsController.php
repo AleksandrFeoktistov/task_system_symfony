@@ -33,9 +33,9 @@ class TicketsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ticket);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->persist($ticket);
+            $get->flush();
 
             return $this->redirectToRoute('tickets_index');
         }
@@ -80,9 +80,9 @@ class TicketsController extends AbstractController
     public function delete(Request $request, Tickets $ticket): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($ticket);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->remove($ticket);
+            $get->flush();
         }
 
         return $this->redirectToRoute('tickets_index');

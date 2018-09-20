@@ -4,18 +4,18 @@
     <h1>Project2</h1>
     <table class="table table-striped table-dark">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project2.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ project2.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ project2.description }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ project2.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ project2.name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ project2.description }}</td>
+        </tr>
         </tbody>
     </table>
 
@@ -39,20 +39,20 @@
          </tr>
        </thead>
        <tbody>
-       {% for tick in tickets %}
+       {% for ticket in tickets %}
        <tr>
-            <td>{{ tick.id }}</td>
-            <td><a href="{{ path('tickets_show',{'id': tick.id}) }}">{{ tick.name }}</a></td>
-            <td>{{ tick.description }}</td>
-            <td>{{ tick.type }}</td>
-            <td>{{ tick.status }}</td>
-            <td>{{ tick.assignedid }}</td>
-            <td>{{ tick.file }}</td>
-            <td>{{ tick.projectId}}</td>
-            <td>{{ tick.createrId}}</td>
-            <td><a href="{{ path('tickets_delete', {'id': tick.id}) }}">delete</a><td>
-            <td><a href="{{ path('tickets_show', {'id': tick.id}) }}">edit</a><td>
+            <td>{{ ticket.id }}</td>
+            <td><a href="{{ path('tickets_show',{'id': ticket.id}) }}">{{ ticket.name }}</a></td>
+            <td>{{ ticket.description }}</td>
+            <td>{{ ticket.type }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.assignedid }}</td>
+            <td>{{ ticket.file }}</td>
+            <td>{{ ticket.projectId}}</td>
+            <td>{{ ticket.createrId}}</td>
+            <td><a href="{{ path('tickets_delete', {'id': ticket.id}) }}">delete</a><td>
+            <td><a href="{{ path('tickets_show', {'id': ticket.id}) }}">edit</a><td>
            </tr>
-           {% endfor %}
-       </tbody>
+      {% endfor %}
+      </tbody>
 {% endblock %}

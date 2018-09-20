@@ -33,9 +33,9 @@ class CommentsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->persist($comment);
+            $get->flush();
 
             return $this->redirectToRoute('comments_index');
         }
@@ -80,9 +80,9 @@ class CommentsController extends AbstractController
     public function delete(Request $request, Comments $comment): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($comment);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->remove($comment);
+            $get->flush();
         }
 
         return $this->redirectToRoute('comments_index');

@@ -33,9 +33,9 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->persist($user);
+            $get->flush();
 
             return $this->redirectToRoute('users_index');
         }
@@ -80,9 +80,9 @@ class UsersController extends AbstractController
     public function delete(Request $request, Users $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+            $get = $this->getDoctrine()->getManager();
+            $get->remove($user);
+            $get->flush();
         }
 
         return $this->redirectToRoute('users_index');
