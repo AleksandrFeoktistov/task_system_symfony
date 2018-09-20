@@ -34,9 +34,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $get = $this->getDoctrine()->getManager();
-            $get->persist($project2);
-            $get->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($project2);
+            $manager->flush();
 
             return $this->redirectToRoute('project2_index');
         }
@@ -52,9 +52,9 @@ class ProjectController extends AbstractController
      */
     public function show(Project2 $project2): Response
     {
-        $get = $this->getDoctrine()->getManager();
-        $get->persist($project2);
-        $get->flush();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($project2);
+        $manager->flush();
         $repository = $this->getDoctrine()->getRepository(Tickets::class);
         $tickets = $repository->findBy(['project_id' => $project2->getId(),]);
         return $this->render('project2/show.html.twig', ['project2' => $project2, 'tickets' => $tickets ]);
@@ -84,9 +84,9 @@ class ProjectController extends AbstractController
     public function delete(Request $request, Project2 $project2): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project2->getId(), $request->request->get('_token'))) {
-            $get = $this->getDoctrine()->getManager();
-            $get->remove($project2);
-            $get->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($project2);
+            $manager->flush();
         }
 
         return $this->redirectToRoute('project2_index');
