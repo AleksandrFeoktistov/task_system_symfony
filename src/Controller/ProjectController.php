@@ -10,17 +10,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 /**
  * @Route("/project2")
  */
 class ProjectController extends AbstractController
 {
-    /**
-     * @Route("/", name="project2_index", methods="GET")
-     */
+
+   /**
+    * @Route("/", name="project2_index", methods="GET")
+    */
     public function index(Project2Repository $project2Repository): Response
     {
+        $em=2;
+        var_dump($em);
+        $all_session_variables = $this->get('session')->all();
+        var_dump($all_session_variables);
         return $this->render('project2/index.html.twig', ['project2s' => $project2Repository->findAll()]);
     }
 
@@ -34,9 +44,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($project2);
-            $manager->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project2);
+            $em->flush();
 
             return $this->redirectToRoute('project2_index');
         }
@@ -52,11 +62,11 @@ class ProjectController extends AbstractController
      */
     public function show(Project2 $project2): Response
     {
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($project2);
-        $manager->flush();
-        $repository = $this->getDoctrine()->getRepository(Tickets::class);
-        $tickets = $repository->findBy(['project_id' => $project2->getId(),]);
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($project2);
+           $em->flush();
+           $repository = $this->getDoctrine()->getRepository(Tickets::class);
+           $tickets = $repository->findBy(['project_id' => $project2->getId(),]);
         return $this->render('project2/show.html.twig', ['project2' => $project2, 'tickets' => $tickets ]);
     }
 
@@ -73,6 +83,7 @@ class ProjectController extends AbstractController
 
             return $this->redirectToRoute('project2_edit', ['id' => $project2->getId()]);
         }
+
         return $this->render('project2/edit.html.twig', [
             'project2' => $project2,
             'form' => $form->createView(),
@@ -84,9 +95,9 @@ class ProjectController extends AbstractController
     public function delete(Request $request, Project2 $project2): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project2->getId(), $request->request->get('_token'))) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->remove($project2);
-            $manager->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($project2);
+            $em->flush();
         }
 
         return $this->redirectToRoute('project2_index');

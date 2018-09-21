@@ -10,7 +10,7 @@
   </head>
    <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Task system</a>
+      <a class="navbar-brand" href="{{ path ('project2_index') }}">Task system</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,7 +21,7 @@
         <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">tag tickets</a>
+        <a class="nav-link" href="{{ path ('tickets_index')}}">tag tickets</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="{{ path ('users_index')}} ">users</a>
@@ -30,6 +30,12 @@
         <span class="navbar-text"></span>
       </div>
     </nav>
+    <div class="container">
+  <div class="row">
+    <div class="col-sm">
     {% block body %}{% endblock %}
+   </div>
+  </div>
+   </div>
   </body>
 </html>
